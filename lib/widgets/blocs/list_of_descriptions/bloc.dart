@@ -9,7 +9,7 @@ class ColorDescriptionsState extends Equatable {
   const ColorDescriptionsState({required this.colorDescretions});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [colorDescretions.hashCode,colorDescretions.length];
 
   ColorDescriptionsState copyWith({required colorDescretions}) {
     return ColorDescriptionsState(
@@ -53,10 +53,10 @@ class ColorDescriptionsBloc
 
   void _onAdd(
       ColorDescriptionsAddEvent event, Emitter<ColorDescriptionsState> emit) {
-    emit(state.copyWith(
-        colorDescretions:  state.colorDescretions..add(event.addingElement)));
+    final newList = state.colorDescretions;
+    newList.add(event.addingElement);
+    emit(state.copyWith(colorDescretions: newList));
   }
-
 
   void _onRemove(ColorDescriptionsRemoveEvent event,
       Emitter<ColorDescriptionsState> emit) {
