@@ -25,7 +25,10 @@ class ColorDescriptionItem extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             )
           : Icon(Icons.brush, color: colorItem.color),
-      subtitle: const Text("Tap for more info"),
+      subtitle: Text(
+        "Tap for more info",
+        style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+      ),
     );
   }
 }

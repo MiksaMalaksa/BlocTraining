@@ -23,10 +23,16 @@ final class ColorDescriptionsAddEvent extends ColorDescriptionEvents {
 }
 
 final class ColorDescriptionsRemoveEvent extends ColorDescriptionEvents {
-  final List<ColorDescription> colorDescretions;
   final ColorDescription removeElement;
-  ColorDescriptionsRemoveEvent(
-      {required this.colorDescretions, required this.removeElement});
+  ColorDescriptionsRemoveEvent({required this.removeElement});
+}
+
+final class ColorDescreptionsCanceledDeletingEvent
+    extends ColorDescriptionEvents {
+  final ColorDescription returnedElement;
+  final int index;
+  ColorDescreptionsCanceledDeletingEvent(
+      {required this.returnedElement, required this.index});
 }
 
 final class ColorDescriptionsEditEvent extends ColorDescriptionEvents {
@@ -49,19 +55,26 @@ class ColorDescriptionsBloc
     on<ColorDescriptionsAddEvent>(_onAdd);
     on<ColorDescriptionsRemoveEvent>(_onRemove);
     on<ColorDescriptionsEditEvent>(_onEdit);
+    on<ColorDescreptionsCanceledDeletingEvent>(_onRemovedCanceled);
   }
 
   void _onAdd(
       ColorDescriptionsAddEvent event, Emitter<ColorDescriptionsState> emit) {
-    final newList = state.colorDescretions;
-    newList.add(event.addingElement);
-    emit(state.copyWith(colorDescretions: newList));
+    emit(state.copyWith(
+        colorDescretions: state.colorDescretions..add(event.addingElement)));
   }
 
   void _onRemove(ColorDescriptionsRemoveEvent event,
       Emitter<ColorDescriptionsState> emit) {
     emit(state.copyWith(
         colorDescretions: state.colorDescretions..remove(event.removeElement)));
+  }
+
+  void _onRemovedCanceled(ColorDescreptionsCanceledDeletingEvent event,
+      Emitter<ColorDescriptionsState> emit) {
+    emit(state.copyWith(
+        colorDescretions: state.colorDescretions
+          ..insert(event.index, event.returnedElement)));
   }
 
   void _onEdit(
