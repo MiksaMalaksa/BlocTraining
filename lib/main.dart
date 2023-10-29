@@ -1,6 +1,7 @@
 import 'package:bloc_test/themes/app_them_bloc.dart';
 import 'package:bloc_test/themes/app_theme_data.dart';
 import 'package:bloc_test/screens/welcome.dart';
+import 'package:bloc_test/widgets/blocs/color_bloc/bloc.dart';
 import 'package:bloc_test/widgets/blocs/list_of_descriptions/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ColorDescriptionsBloc>(
           create: (_) => ColorDescriptionsBloc(),
         ),
+        BlocProvider<ColorAnimationBloc>(
+          create: (_) => ColorAnimationBloc(),
+        )
       ],
       child: BlocBuilder<ThemeBloc, ThemeBlocState>(
         builder: (context, state) {

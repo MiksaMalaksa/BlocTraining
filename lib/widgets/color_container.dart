@@ -1,4 +1,6 @@
+import 'package:bloc_test/widgets/blocs/color_bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ColorContainer extends StatefulWidget {
   const ColorContainer(
@@ -16,7 +18,6 @@ class _ColorContainerState extends State<ColorContainer> {
   double smallContainerSize = 66;
   double borderWidth = 3;
   bool changeToWhite = false;
-  bool choosed = false;
 
   double saveiBgContainerSize = 96;
   double saveSmallContainerSize = 66;
@@ -40,22 +41,31 @@ class _ColorContainerState extends State<ColorContainer> {
         child: GestureDetector(
           onTap: () {
             setState(() {
-              if (choosed = true && smallContainerSize == bigContainerSize) {
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text("Can not choose 2 colors at once!")));
-                bigContainerSize == smallContainerSize;
-              } else if (smallContainerSize != bigContainerSize) {
+              bool choosed = context.read<ColorAnimationBloc>().state.choosed;
+              if (smallContainerSize != bigContainerSize && !choosed) {
                 smallContainerSize = bigContainerSize;
                 borderWidth = 0;
                 changeToWhite = true;
-                choosed = true;
-              } else {
+                context.read<ColorAnimationBloc>().add(
+                    ColorAnimationToggledEvent(toogledColor: widget.color));
+              } else if (smallContainerSize == bigContainerSize && choosed) {
                 smallContainerSize = saveSmallContainerSize;
                 borderWidth = saveBorderWidth;
                 changeToWhite = false;
-                choosed = false;
+                context
+                    .read<ColorAnimationBloc>()
+                    .add(ColorAnimationUntoggledEvent());
+              } else {
+                ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 1),
+                  content: const Text(
+                    "Can not choose 2 colors at once!",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                ));
+                bigContainerSize == smallContainerSize;
               }
             });
           },

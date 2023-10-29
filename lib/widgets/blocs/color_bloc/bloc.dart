@@ -1,19 +1,22 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ColorAnimationState {
   final bool choosed;
+  final Color? color;
 
-  ColorAnimationState({required this.choosed});
+  ColorAnimationState({required this.choosed, required this.color});
 
-  ColorAnimationState copyWith({required choosed}) {
-    return ColorAnimationState(choosed: choosed ?? this.choosed);
+  ColorAnimationState copyWith({required choosed, required color}) {
+    return ColorAnimationState(choosed: choosed ?? this.choosed, color: color);
   }
 }
 
 abstract class ColorAnimationEvents {}
 
 final class ColorAnimationToggledEvent extends ColorAnimationEvents {
-  ColorAnimationToggledEvent();
+  final Color toogledColor;
+  ColorAnimationToggledEvent({required this.toogledColor});
 }
 
 final class ColorAnimationUntoggledEvent extends ColorAnimationEvents {
@@ -22,18 +25,20 @@ final class ColorAnimationUntoggledEvent extends ColorAnimationEvents {
 
 class ColorAnimationBloc
     extends Bloc<ColorAnimationEvents, ColorAnimationState> {
-  ColorAnimationBloc() : super(ColorAnimationState(choosed: false)) {
+  ColorAnimationBloc()
+      : super(ColorAnimationState(choosed: false, color: null)) {
     on<ColorAnimationToggledEvent>(_onToogle);
     on<ColorAnimationUntoggledEvent>(_onUntoogle);
   }
 
   void _onToogle(
       ColorAnimationToggledEvent event, Emitter<ColorAnimationState> emit) {
-    emit(state.copyWith(choosed: true));
+    emit(state.copyWith(choosed: true, color: event.toogledColor));
   }
 
   void _onUntoogle(
       ColorAnimationUntoggledEvent event, Emitter<ColorAnimationState> emit) {
-    emit(state.copyWith(choosed: false));
+    emit(state.copyWith(choosed: false, color: null));
   }
+  
 }

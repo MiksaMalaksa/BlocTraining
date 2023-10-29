@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import '../../../model/color_description.dart';
 
 class ColorDescriptionsState {
@@ -45,13 +44,7 @@ final class ColorDescriptionsEditEvent extends ColorDescriptionEvents {
 class ColorDescriptionsBloc
     extends Bloc<ColorDescriptionEvents, ColorDescriptionsState> {
   ColorDescriptionsBloc()
-      : super(ColorDescriptionsState(colorDescretions: [
-          ColorDescription(
-              color: Colors.amber,
-              description: "Aha",
-              title: "Oj",
-              id: uuid.v4())
-        ])) {
+      : super(const ColorDescriptionsState(colorDescretions: [])) {
     on<ColorDescriptionsAddEvent>(_onAdd);
     on<ColorDescriptionsRemoveEvent>(_onRemove);
     on<ColorDescriptionsEditEvent>(_onEdit);
@@ -87,10 +80,9 @@ class ColorDescriptionsBloc
   }
 }
 
-
 // void _onEdit(ColorDescreptionsEditEvent event, Emitter<ColorDescriptionsState> emit) {
 //     final indexOfElementBeforeEditing = state.colorDescretions.indexWhere((element) => element.id == event.editElement.id);
-    
+
 //     emit(state.copyWith(
 //         colorDescretions: [
 //             ...state.colorDescretions.sublist(0, indexOfElementBeforeEditing),

@@ -33,7 +33,7 @@ class WelcomeScreeenAppBar extends StatelessWidget
             }),
         IconButton(
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) => AddColorDescriptionItem())),
+                builder: (ctx) => const AddColorDescriptionItem())),
             icon: const Icon(Icons.add))
       ],
     );
