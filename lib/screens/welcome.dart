@@ -13,7 +13,6 @@ class WelcomeScreen extends StatelessWidget {
       appBar: const WelcomeScreeenAppBar(),
       body: BlocBuilder<ColorDescriptionsBloc, ColorDescriptionsState>(
           builder: (context, state) {
-    print(state.colorDescretions.length);
         return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ColorDescreptions(list: state.colorDescretions));

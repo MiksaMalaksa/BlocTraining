@@ -13,6 +13,7 @@ class AddColorDescriptionItem extends StatelessWidget {
               color: Colors.amber,
               description: "s",
               title: "Oj",
+              id: uuid.v4()
             ),
           ),
         );
@@ -36,3 +37,5 @@ class AddColorDescriptionItem extends StatelessWidget {
     );
   }
 }
+
+// !-_-_- [get it, di] -_-_-!

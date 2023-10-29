@@ -1,15 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../../../model/color_description.dart';
 
-class ColorDescriptionsState extends Equatable {
+class ColorDescriptionsState {
   final List<ColorDescription> colorDescretions;
 
   const ColorDescriptionsState({required this.colorDescretions});
-
-  @override
-  List<Object?> get props => [colorDescretions.hashCode,colorDescretions.length];
 
   ColorDescriptionsState copyWith({required colorDescretions}) {
     return ColorDescriptionsState(
@@ -44,7 +40,11 @@ class ColorDescriptionsBloc
     extends Bloc<ColorDescriptionEvents, ColorDescriptionsState> {
   ColorDescriptionsBloc()
       : super(ColorDescriptionsState(colorDescretions: [
-          ColorDescription(color: Colors.amber, description: "Aha", title: "Oj")
+          ColorDescription(
+              color: Colors.amber,
+              description: "Aha",
+              title: "Oj",
+              id: uuid.v4())
         ])) {
     on<ColorDescriptionsAddEvent>(_onAdd);
     on<ColorDescriptionsRemoveEvent>(_onRemove);
