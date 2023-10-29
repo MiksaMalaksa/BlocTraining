@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import '../model/color_description.dart';
+import '../screens/color_item_details.dart';
 
 class ColorDescriptionItem extends StatelessWidget {
-  const ColorDescriptionItem(
-      {super.key, required this.colorItem, required this.onSelected});
+  const ColorDescriptionItem({super.key, required this.colorItem});
 
   final ColorDescription colorItem;
-  final void Function(BuildContext context, ColorDescription colorDescription)
-      onSelected;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => onSelected,
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ColorItemDescriptionScreen(
+                item: colorItem,
+              ))),
       title: colorItem.title == "" || colorItem.title == null
           ? const Text("No title")
           : Text(

@@ -44,7 +44,7 @@ final class ColorDescriptionsEditEvent extends ColorDescriptionEvents {
 class ColorDescriptionsBloc
     extends Bloc<ColorDescriptionEvents, ColorDescriptionsState> {
   ColorDescriptionsBloc()
-      : super(const ColorDescriptionsState(colorDescretions: [])) {
+      : super(ColorDescriptionsState(colorDescretions: [])) {
     on<ColorDescriptionsAddEvent>(_onAdd);
     on<ColorDescriptionsRemoveEvent>(_onRemove);
     on<ColorDescriptionsEditEvent>(_onEdit);

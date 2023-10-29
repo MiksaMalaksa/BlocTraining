@@ -40,7 +40,7 @@ class ColorDescreptions extends StatelessWidget {
             key: ValueKey(list[index]),
             onDismissed: (direction) => _deletingElement(context, index),
             child: ColorDescriptionItem(
-                colorItem: list[index], onSelected: (context, colorItem) {}),
+                colorItem: list[index]),
           );
         });
   }
